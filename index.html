@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Wael Salameh — Full-Stack Developer & AI Engineer. Building RAG platforms, computer vision systems, and enterprise apps." />
+<meta name="author" content="Wael Salameh" />
+<title>Wael Salameh — Full-Stack Developer & AI Engineer</title>
+<style>
+  :root {
+    --bg: #0f0d1a;
+    --bg-card: #1a1530;
+    --bg-card-hover: #221b3d;
+    --border: #2d2547;
+    --text: #e8e3f5;
+    --text-dim: #a89cc9;
+    --text-muted: #6b5f8a;
+    --accent: #8b6fe8;
+    --accent-bright: #a98aff;
+    --accent-dim: #4a3a8a;
+    --pill-bg: #2a2440;
+    --code: #ff9a76;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.65;
+    font-size: 16px;
+    overflow-x: hidden;
+  }
+
+  /* subtle grid background */
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 0%, rgba(139, 111, 232, 0.08), transparent 40%),
+      radial-gradient(circle at 80% 100%, rgba(169, 138, 255, 0.06), transparent 40%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container { max-width: 980px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
+
+  /* Nav */
+  nav {
+    position: sticky; top: 0; z-index: 10;
+    backdrop-filter: blur(12px);
+    background: rgba(15, 13, 26, 0.7);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .container { display: flex; justify-content: space-between; align-items: center; padding: 16px 28px; }
+  .logo { font-weight: 700; font-size: 18px; color: var(--text); letter-spacing: -0.5px; }
+  .logo span { color: var(--accent-bright); }
+  nav ul { display: flex; gap: 28px; list-style: none; }
+  nav a { color: var(--text-dim); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+  nav a:hover { color: var(--accent-bright); }
+  @media (max-width: 640px) { nav ul { display: none; } }
+
+  /* Hero */
+  header {
+    padding: 90px 0 70px 0;
+  }
+  .eyebrow {
+    display: inline-block;
+    font-size: 13px; color: var(--accent-bright); font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-size: clamp(38px, 6.5vw, 64px);
+    line-height: 1.05;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #ffffff 0%, #c9b8ff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .tagline {
+    font-size: clamp(17px, 2.4vw, 21px);
+    color: var(--text-dim);
+    max-width: 640px;
+    margin-bottom: 36px;
+  }
+  .tagline strong { color: var(--text); font-weight: 600; }
+  .cta-row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 22px; border-radius: 10px;
+    font-size: 14px; font-weight: 600; text-decoration: none;
+    transition: all 0.2s; border: 1px solid transparent;
+  }
+  .btn-primary {
+    background: var(--accent); color: white;
+    box-shadow: 0 4px 20px rgba(139, 111, 232, 0.35);
+  }
+  .btn-primary:hover { background: var(--accent-bright); transform: translateY(-1px); box-shadow: 0 6px 24px rgba(139, 111, 232, 0.5); }
+  .btn-ghost { background: transparent; color: var(--text-dim); border-color: var(--border); }
+  .btn-ghost:hover { color: var(--text); border-color: var(--accent); }
+
+  /* Sections */
+  section { padding: 60px 0; }
+  .section-eyebrow {
+    font-size: 12px; color: var(--accent-bright); font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  h2 {
+    font-size: clamp(28px, 4vw, 36px);
+    font-weight: 700; letter-spacing: -1px;
+    margin-bottom: 28px; color: var(--text);
+  }
+
+  /* About */
+  .about p { color: var(--text-dim); font-size: 17px; max-width: 720px; margin-bottom: 14px; }
+  .about strong { color: var(--text); font-weight: 600; }
+
+  /* Projects */
+  .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+  .project {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    transition: all 0.25s;
+    position: relative; overflow: hidden;
+  }
+  .project::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .project:hover { background: var(--bg-card-hover); border-color: var(--accent-dim); transform: translateY(-2px); }
+  .project:hover::before { opacity: 1; }
+  .project-tag {
+    display: inline-block; font-size: 11px; font-weight: 600;
+    color: var(--accent-bright); letter-spacing: 1.5px; text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .project h3 { font-size: 19px; margin-bottom: 8px; color: var(--text); font-weight: 700; }
+  .project p { color: var(--text-dim); font-size: 14.5px; margin-bottom: 14px; line-height: 1.6; }
+  .stack { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+  .stack span {
+    background: var(--pill-bg); color: var(--text-dim);
+    padding: 4px 10px; border-radius: 6px; font-size: 11.5px; font-weight: 500;
+  }
+  .project a { color: var(--accent-bright); text-decoration: none; font-size: 13.5px; font-weight: 600; }
+  .project a:hover { text-decoration: underline; }
+
+  /* Skills */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; }
+  .skill-group { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .skill-group h4 {
+    font-size: 11px; color: var(--accent-bright);
+    letter-spacing: 2px; text-transform: uppercase; font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .skill-group ul { list-style: none; }
+  .skill-group li { color: var(--text-dim); padding: 4px 0; font-size: 14px; }
+
+  /* Experience */
+  .timeline { border-left: 2px solid var(--border); padding-left: 24px; margin-left: 8px; }
+  .role { margin-bottom: 32px; position: relative; }
+  .role::before {
+    content: ""; position: absolute; left: -32px; top: 6px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 0 0 4px var(--bg);
+  }
+  .role-head { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+  .role h3 { font-size: 17px; color: var(--text); font-weight: 700; }
+  .role .when { color: var(--text-muted); font-size: 13px; font-weight: 500; }
+  .role .where { color: var(--accent-bright); font-size: 13.5px; margin-bottom: 8px; font-weight: 500; }
+  .role p { color: var(--text-dim); font-size: 14.5px; }
+
+  /* Contact */
+  .contact-card {
+    background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-card-hover) 100%);
+    border: 1px solid var(--accent-dim);
+    border-radius: 16px;
+    padding: 40px 32px;
+    text-align: center;
+  }
+  .contact-card h2 { margin-bottom: 12px; }
+  .contact-card p { color: var(--text-dim); margin-bottom: 24px; font-size: 16px; }
+  .contact-row { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+
+  /* Footer */
+  footer {
+    text-align: center; padding: 40px 0 30px 0;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted); font-size: 13px;
+  }
+  footer a { color: var(--text-dim); text-decoration: none; }
+  footer a:hover { color: var(--accent-bright); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div class="logo">Wael<span>.</span></div>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header>
+  <div class="container">
+    <span class="eyebrow">Full-Stack Developer &middot; AI Engineer</span>
+    <h1>Wael Salameh</h1>
+    <p class="tagline">I build <strong>RAG platforms</strong>, fine-tune <strong>computer vision models</strong>, and ship <strong>enterprise web apps</strong> end-to-end. 3+ years across React, .NET Core, and Python AI.</p>
+    <div class="cta-row">
+      <a href="#contact" class="btn btn-primary">Get in touch</a>
+      <a href="https://github.com/superwae" class="btn btn-ghost" target="_blank" rel="noopener">View GitHub →</a>
+      <a href="CV_Wael_Salameh.pdf" class="btn btn-ghost" target="_blank">Download CV ↓</a>
+    </div>
+  </div>
+</header>
+
+<section id="about" class="about">
+  <div class="container">
+    <div class="section-eyebrow">About</div>
+    <h2>What I do</h2>
+    <p>Mid-level full-stack developer based in <strong>Ramallah, Palestine</strong>. Currently building enterprise AI infrastructure at MENAATAL — RAG platforms, semantic search, and an applicant tracking system serving real clients across the MENA region.</p>
+    <p>Outside the day job, I co-founded <strong>IBSAR</strong> (microservices-based AI product, fine-tuned YOLO models for computer vision) and ship side projects under the name <strong>superwae</strong>.</p>
+    <p>I care about: <strong>shipping fast without breaking things</strong>, <strong>well-typed APIs</strong>, <strong>infra you can reason about</strong>, and <strong>AI that actually solves the user's problem</strong>.</p>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="container">
+    <div class="section-eyebrow">Selected Work</div>
+    <h2>Projects</h2>
+    <div class="project-grid">
+
+      <div class="project">
+        <div class="project-tag">Enterprise AI</div>
+        <h3>NexusRAG</h3>
+        <p>Enterprise-grade RAG platform delivering context-aware responses with low latency. Ingests Notion workspaces and document repos, runs semantic search with intelligent reasoning fallback for complex queries.</p>
+        <div class="stack"><span>Python</span><span>FastAPI</span><span>Qdrant</span><span>.NET Core</span><span>Azure</span></div>
+        <span style="color: var(--text-muted); font-size: 13px;">Built at MENAATAL</span>
+      </div>
+
+      <div class="project">
+        <div class="project-tag">Computer Vision</div>
+        <h3>IBSAR — AI Product Suite</h3>
+        <p>Co-founded a microservices AI product. Fine-tuned YOLO models for object detection on custom datasets. ~5 connected services on Hetzner infra.</p>
+        <div class="stack"><span>YOLO</span><span>Python</span><span>TensorFlow</span><span>Microservices</span><span>Hetzner</span></div>
+        <span style="color: var(--text-muted); font-size: 13px;">Co-founder &amp; AI lead</span>
+      </div>
+
+      <div class="project">
+        <div class="project-tag">RAG &middot; Open</div>
+        <h3>lynxAI</h3>
+        <p>Retrieval-augmented AI assistant built for a municipality use case. Vector search over local documents, prompt-engineered for the domain.</p>
+        <div class="stack"><span>Python</span><span>RAG</span><span>Embeddings</span></div>
+        <a href="https://github.com/superwae" target="_blank" rel="noopener">github.com/superwae →</a>
+      </div>
+
+      <div class="project">
+        <div class="project-tag">HR Tech</div>
+        <h3>Applicant Tracking System</h3>
+        <p>Full-featured ATS with job postings, automated candidate screening, and stage-based pipelines. Built end-to-end for an enterprise client.</p>
+        <div class="stack"><span>.NET Core</span><span>React</span><span>SQL Server</span><span>Azure</span></div>
+        <span style="color: var(--text-muted); font-size: 13px;">Built at MENAATAL</span>
+      </div>
+
+      <div class="project">
+        <div class="project-tag">FinTech</div>
+        <h3>Self-Service Kiosk Payments</h3>
+        <p>Built from scratch — design through deployment. REST APIs with payment gateway integration, transaction handling, hardware-tier kiosk client.</p>
+        <div class="stack"><span>Angular</span><span>.NET Core</span><span>SQL Server</span><span>IIS</span></div>
+        <span style="color: var(--text-muted); font-size: 13px;">Al-Ghassan Systems</span>
+      </div>
+
+      <div class="project">
+        <div class="project-tag">Tourism</div>
+        <h3>Tourism Management Platform</h3>
+        <p>End-to-end tourism management system serving thousands of users. Led development from architecture to deployment.</p>
+        <div class="stack"><span>Angular</span><span>.NET Core</span><span>REST APIs</span></div>
+        <span style="color: var(--text-muted); font-size: 13px;">Al-Ghassan Systems</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="container">
+    <div class="section-eyebrow">Career</div>
+    <h2>Experience</h2>
+    <div class="timeline">
+
+      <div class="role">
+        <div class="role-head">
+          <h3>Full-Stack Data Engineer</h3>
+          <span class="when">Sep 2025 — Present</span>
+        </div>
+        <div class="where">MENAATAL (Top MENA Talents) · Remote · Client: Youmna</div>
+        <p>Architecting NexusRAG, building data ingestion pipelines for embeddings + vector DBs, and shipping an internal ATS for the client.</p>
+      </div>
+
+      <div class="role">
+        <div class="role-head">
+          <h3>AI Engineer · Co-founder</h3>
+          <span class="when">2024 — Present</span>
+        </div>
+        <div class="where">IBSAR · Part-time</div>
+        <p>Co-founded a microservices AI product. Fine-tuning YOLO models, designing AI features across the product line.</p>
+      </div>
+
+      <div class="role">
+        <div class="role-head">
+          <h3>Full-Stack Developer</h3>
+          <span class="when">Jun 2024 — Nov 2025</span>
+        </div>
+        <div class="where">Al-Ghassan Systems · Ramallah</div>
+        <p>Led tourism management system, ERP modules, payment gateway integrations, and a self-service kiosk system from scratch. Full-time through Aug 2025, then transitioned to part-time.</p>
+      </div>
+
+      <div class="role">
+        <div class="role-head">
+          <h3>Full-Stack Developer (Intern)</h3>
+          <span class="when">Jun — Sep 2023</span>
+        </div>
+        <div class="where">iConnect Technologies · Ramallah</div>
+        <p>Built responsive web apps with Angular + ASP.NET Core in an Agile team. Code reviews, CI/CD, sprint cadence.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="container">
+    <div class="section-eyebrow">Toolbox</div>
+    <h2>Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h4>Backend</h4>
+        <ul><li>.NET Core / C#</li><li>Python · FastAPI</li><li>REST APIs</li><li>System Architecture</li><li>Microservices</li></ul>
+      </div>
+      <div class="skill-group">
+        <h4>Frontend</h4>
+        <ul><li>React</li><li>Angular</li><li>TypeScript</li><li>Cypress (E2E)</li></ul>
+      </div>
+      <div class="skill-group">
+        <h4>AI / ML</h4>
+        <ul><li>RAG Systems</li><li>Embeddings · Vector Search</li><li>Qdrant</li><li>YOLO (fine-tuning)</li><li>TensorFlow</li><li>LLM integrations</li></ul>
+      </div>
+      <div class="skill-group">
+        <h4>Data</h4>
+        <ul><li>PostgreSQL</li><li>SQL Server</li><li>Qdrant (vector)</li><li>Neo4j (graph)</li></ul>
+      </div>
+      <div class="skill-group">
+        <h4>Infra</h4>
+        <ul><li>Azure</li><li>Hetzner</li><li>Linux · IIS</li><li>Git · CI/CD</li><li>Docker</li></ul>
+      </div>
+      <div class="skill-group">
+        <h4>Practices</h4>
+        <ul><li>Agile / Scrum</li><li>System Design</li><li>Code Review</li><li>Mentoring juniors</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <div class="contact-card">
+      <h2>Let's build something</h2>
+      <p>Open to remote roles worldwide and on-site work in Ramallah.</p>
+      <div class="contact-row">
+        <a href="mailto:wael255@live.com" class="btn btn-primary">wael255@live.com</a>
+        <a href="https://www.linkedin.com/in/wael-salameh/" class="btn btn-ghost" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/superwae" class="btn btn-ghost" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    Built &amp; deployed by Wael &middot; <a href="https://github.com/superwae/superwae.github.io" target="_blank" rel="noopener">source</a>
+  </div>
+</footer>
+
+</body>
+</html>
